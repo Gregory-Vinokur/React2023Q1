@@ -1,3 +1,25 @@
 .App {
   text-align: center;
 }
+
+.active {
+  color: lightyellow;
+  text-decoration: underline;
+}
+
+a {
+  color: lightblue;
+  font-size: 35px;
+  text-decoration: none;
+}
+
+nav {
+  background-color: darkslategray;
+  padding: 5px;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+nav a {
+  margin: 15px;
+}
