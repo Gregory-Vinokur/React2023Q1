@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
-import Home from './components/Home';
-import About from './components/About';
-import NotFound from './components/NotFound';
+import Home from './pages/Home';
+import About from './pages/About';
+import NotFound from './pages/NotFound';
 import MainLayout from './layouts/MainLayout';
 
 class App extends Component {

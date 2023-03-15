@@ -9,7 +9,6 @@ class Menu extends Component {
           Home
         </NavLink>
         <NavLink to="about">About</NavLink>
-        <NavLink to="404">404</NavLink>
       </nav>
     );
   }
