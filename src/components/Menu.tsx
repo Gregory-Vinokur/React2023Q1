@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 class Menu extends Component {
   render() {
     return (
-      <nav>
+      <nav role="navigation">
         <NavLink to="." end>
           Home
         </NavLink>

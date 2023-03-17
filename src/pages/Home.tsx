@@ -12,7 +12,7 @@ class Home extends Component {
           <h1>Home</h1>
         </header>
         <SearchBar />
-        <div className={styles.cardsContainer}>
+        <div data-testid="cards__container" className={styles.cardsContainer}>
           {cards.map((card, index) => (
             <Card {...card} key={index} />
           ))}

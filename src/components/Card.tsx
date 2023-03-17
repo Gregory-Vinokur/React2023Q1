@@ -28,7 +28,7 @@ class Card extends Component<ICard> {
             <CardButton cardButtonImg={comment} cardButtonCounter={comments} />
             <CardButton cardButtonImg={share} cardButtonCounter={shares} />
           </div>
-          <div className={styles.cardFooter}>
+          <div className={styles.cardFooter} role="status">
             <span>Created by: {author}</span>
             <span>{date}</span>
           </div>
