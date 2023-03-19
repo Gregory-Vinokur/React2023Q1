@@ -27,3 +27,8 @@ nav {
 nav a {
   margin: 15px;
 }
+
+.empty__page-content {
+  margin-top: 200px;
+  font-size: 45px;
+}

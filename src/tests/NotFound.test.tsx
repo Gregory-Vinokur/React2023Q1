@@ -9,10 +9,10 @@ describe('NotFound component test', () => {
   test('Renders 404 header', () => {
     render(<NotFound />);
     const header = screen.getByRole('heading', { level: 1 }) as HTMLElement;
-    const heading = screen.getByText('404');
+    const headerText = screen.getByText('404');
     expect(header).toBeDefined();
-    expect(heading).toBeDefined();
-    expect(header).toContainElement(heading);
+    expect(headerText).toBeDefined();
+    expect(header).toContainElement(headerText);
   });
   test('Redirects to 404 page if user input invalid path', () => {
     render(
