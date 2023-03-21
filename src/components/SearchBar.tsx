@@ -28,13 +28,13 @@ class SearchBar extends Component {
     });
   };
 
-  handleFormSubmit(e: React.SyntheticEvent) {
+  handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const newSearchBarValue = (document.getElementById('searchBarInput') as HTMLInputElement).value;
+    const newSearchBarValue = this.state.searchBarValue;
     this.setState({
       searchBarValue: newSearchBarValue,
     });
-  }
+  };
 
   render() {
     return (
@@ -46,7 +46,6 @@ class SearchBar extends Component {
           value={this.state.searchBarValue as string}
           onChange={this.saveSearchBarValue}
           placeholder="Search for cards..."
-          id="searchBarInput"
         />
         <button className={styles.searchButton} type="submit">
           Search
