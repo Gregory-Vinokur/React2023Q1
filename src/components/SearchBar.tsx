@@ -8,8 +8,17 @@ class SearchBar extends Component {
       : '',
   };
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', () => {
+      window.localStorage.setItem('searchBarValue_GV', this.state.searchBarValue as string);
+    });
+  }
+
   componentWillUnmount() {
     localStorage.setItem('searchBarValue_GV', this.state.searchBarValue as string);
+    window.removeEventListener('beforeunload', () => {
+      window.localStorage.setItem('searchBarValue_GV', this.state.searchBarValue as string);
+    });
   }
 
   saveSearchBarValue = (e: React.SyntheticEvent) => {
