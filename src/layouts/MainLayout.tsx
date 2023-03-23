@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Outlet } from 'react-router-dom';
-import Menu from './../components/Menu';
+import Navigation from '../components/molecules/navigation/Navigation';
 
 class MainLayout extends Component {
   render() {
     return (
       <>
-        <Menu />
+        <Navigation />
         <Outlet />
       </>
     );
