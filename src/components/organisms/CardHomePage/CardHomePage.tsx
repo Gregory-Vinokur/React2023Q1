@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import styles from './Card.module.css';
-import { ICard } from '../../../interfaces/ICard';
+import styles from './CardHomePage.module.css';
+import { ICardHomePage } from '../../../interfaces/ICardHomePage';
 import like from '../../../assets/like.svg';
 import comment from '../../../assets/comment.svg';
 import share from '../../../assets/share.svg';
 import ButtonCard from '../../molecules/button-card/ButtonCard';
-import CardTemplate from './../../templates/Card/CardTemplate';
+import CardTemplate from '../../templates/Card/CardTemplate';
 
-class Card extends Component<ICard> {
+class Card extends Component<ICardHomePage> {
   render() {
     const { color, likes, comments, shares, author, date } = this.props;
     return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styles from './Home.module.css';
-import Card from './../../components/organisms/Card/Card';
+import Card from '../../components/organisms/CardHomePage/CardHomePage';
 import SearchBar from './../../components/organisms/SearchBar/SearchBar';
 import cards from './../../data/cards';
 import Header from './../../components/molecules/header/Header';

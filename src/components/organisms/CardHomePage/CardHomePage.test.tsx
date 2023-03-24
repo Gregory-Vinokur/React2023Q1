@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Card from './Card';
+import CardHomePage from './CardHomePage';
 import '@testing-library/jest-dom';
 
 describe('Cards tests', () => {
@@ -14,7 +14,7 @@ describe('Cards tests', () => {
       date: 'March 17, 2023',
     };
 
-    render(<Card {...props} />);
+    render(<CardHomePage {...props} />);
 
     const cardImage = screen.getByText(/card image/i);
     const cardTitle = screen.getByText(/card title/i);

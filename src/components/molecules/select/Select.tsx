@@ -3,6 +3,7 @@ import styles from './Select.module.css';
 
 type SelectProps = {
   options: SelectOption[];
+  selectRef?: React.RefObject<HTMLSelectElement>;
 };
 
 type SelectOption = {
@@ -12,9 +13,10 @@ type SelectOption = {
 
 class Select extends Component<SelectProps> {
   render() {
-    const { options } = this.props;
+    const { options, selectRef } = this.props;
     return (
-      <select className={styles.select}>
+      <select className={styles.select} ref={selectRef}>
+        <option value="">Select the theme:</option>
         {options.map(({ value, label }) => {
           return <option key={value}>{label}</option>;
         })}

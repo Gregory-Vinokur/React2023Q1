@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, InputHTMLAttributes } from 'react';
 import Label from './../../atoms/label/Label';
 import Span from './../../atoms/typography/Span';
-import Input from './../../atoms/input/Input';
 
-type InputWithLabelProps = {
+interface InputWithLabelProps extends InputHTMLAttributes<HTMLInputElement> {
   text?: string;
   type: string;
   children?: React.ReactNode;
   className?: string;
   accept?: string;
-};
+  inputRef?: React.RefObject<HTMLInputElement>;
+}
 
 class InputWithLabel extends Component<InputWithLabelProps> {
   render() {
-    const { text, type, children, className, ...rest } = this.props;
+    const { text, type, children, className, inputRef, ...rest } = this.props;
     return (
       <Label>
         <Span>{text}</Span>
-        <Input type={type} className={className} {...rest} />
+        <input type={type} className={className} ref={inputRef} {...rest} />
         {children}
       </Label>
     );

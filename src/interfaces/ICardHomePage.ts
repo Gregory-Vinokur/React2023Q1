@@ -1,4 +1,4 @@
-export interface ICard {
+export interface ICardHomePage {
   color: string;
   likes: number | string;
   comments: number | string;

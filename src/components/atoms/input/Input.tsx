@@ -6,6 +6,7 @@ export type InputProps = {
   type?: string;
   className?: string;
   accept?: string;
+  ref?: React.RefObject<HTMLInputElement>;
 };
 
 class Input extends Component<InputProps> {
