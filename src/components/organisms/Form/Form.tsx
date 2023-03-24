@@ -16,8 +16,7 @@ class Form extends Component<IFormProps> {
   dateRef: React.RefObject<HTMLInputElement>;
   selectRef: React.RefObject<HTMLSelectElement>;
   checkboxRef: React.RefObject<HTMLInputElement>;
-  radioMaleRef: React.RefObject<HTMLInputElement>;
-  radioFemaleRef: React.RefObject<HTMLInputElement>;
+  radioRef: React.RefObject<HTMLInputElement>;
   fileRef: React.RefObject<HTMLInputElement>;
 
   constructor(props: IFormProps) {
@@ -28,8 +27,7 @@ class Form extends Component<IFormProps> {
     this.dateRef = React.createRef();
     this.selectRef = React.createRef();
     this.checkboxRef = React.createRef();
-    this.radioMaleRef = React.createRef();
-    this.radioFemaleRef = React.createRef();
+    this.radioRef = React.createRef();
     this.fileRef = React.createRef();
   }
 
@@ -41,11 +39,7 @@ class Form extends Component<IFormProps> {
       date: this.dateRef.current ? this.dateRef.current.value : '',
       select: this.selectRef.current ? this.selectRef.current.value : '',
       checkbox: this.checkboxRef.current ? this.checkboxRef.current.checked : '',
-      radio: (this.radioMaleRef.current ? this.radioMaleRef.current.checked : '')
-        ? 'Male'
-        : (this.radioFemaleRef.current ? this.radioFemaleRef.current.checked : '')
-        ? 'Female'
-        : '',
+      radio: this.radioRef.current ? this.radioRef.current.value : '',
       file: this.fileRef.current?.files ? this.fileRef.current.files[0] : null,
     };
     const card: ICardFormPage = {
@@ -77,10 +71,22 @@ class Form extends Component<IFormProps> {
           selectRef={this.selectRef}
         />
         <div>
-          <InputWithLabel type="radio" className={styles.checkbox} inputRef={this.radioMaleRef}>
+          <InputWithLabel
+            className={styles.checkbox}
+            type="radio"
+            name="gender"
+            value="Male"
+            inputRef={this.radioRef}
+          >
             Male
           </InputWithLabel>
-          <InputWithLabel type="radio" className={styles.checkbox} inputRef={this.radioFemaleRef}>
+          <InputWithLabel
+            className={styles.checkbox}
+            type="radio"
+            name="gender"
+            value="Female"
+            inputRef={this.radioRef}
+          >
             Female
           </InputWithLabel>
         </div>
