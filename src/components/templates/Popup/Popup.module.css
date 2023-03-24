@@ -6,6 +6,7 @@
   padding: 16px;
   border: 2px solid #333;
   background-color: darkslategray;
+  border-radius: 20px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   font-size: 34px;
   line-height: 1.5;

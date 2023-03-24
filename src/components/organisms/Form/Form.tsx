@@ -10,7 +10,7 @@ interface IFormProps {
 }
 
 class Form extends Component<IFormProps> {
-  formRef: React.RefObject<FormTemplate>;
+  formRef: React.RefObject<HTMLFormElement>;
   nameRef: React.RefObject<HTMLInputElement>;
   surnameRef: React.RefObject<HTMLInputElement>;
   dateRef: React.RefObject<HTMLInputElement>;
@@ -57,14 +57,12 @@ class Form extends Component<IFormProps> {
       gender: formData.radio,
     };
     this.props.createCard(card);
-    if (this.formRef.current) {
-      this.formRef.current.reset();
-    }
+    this.formRef.current?.reset();
   };
 
   render() {
     return (
-      <FormTemplate onSubmit={this.handleSubmit} ref={this.formRef}>
+      <FormTemplate onSubmit={this.handleSubmit} formRef={this.formRef}>
         <div>
           <InputWithLabel type="text" text="Name:" inputRef={this.nameRef} />
           <InputWithLabel type="text" text="Surname:" inputRef={this.surnameRef} />

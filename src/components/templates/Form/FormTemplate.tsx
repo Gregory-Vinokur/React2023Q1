@@ -7,11 +7,9 @@ interface FormTemplateProps extends FormHTMLAttributes<HTMLFormElement> {
 }
 
 class FormTemplate extends Component<FormTemplateProps> {
-  formRef = React.createRef<HTMLFormElement>();
-
   reset = () => {
-    if (this.formRef.current) {
-      this.formRef.current.reset();
+    if (this.props.formRef?.current) {
+      this.props.formRef.current.reset();
     }
   };
   render() {
