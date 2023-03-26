@@ -1,6 +1,6 @@
-import { ICard } from '../interfaces/ICardHomePage';
+import { ICardHomePage } from './../interfaces/ICardHomePage';
 
-const cards: ICard[] = [
+const cards: ICardHomePage[] = [
   {
     color: 'lightblue',
     likes: 1,
