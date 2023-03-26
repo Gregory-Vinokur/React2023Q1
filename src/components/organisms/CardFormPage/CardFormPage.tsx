@@ -5,7 +5,7 @@ import { ICardFormPage } from './../../../interfaces/ICardFormPage';
 
 class CardFormPage extends Component<ICardFormPage> {
   render() {
-    const { source, theme, name, surname, date, gender } = this.props;
+    const { source, theme, name, surname, date, gender, desc } = this.props;
     return (
       <CardTemplate>
         <div className={styles.imageContainer}>
@@ -13,11 +13,7 @@ class CardFormPage extends Component<ICardFormPage> {
         </div>
         <div className={styles.content}>
           <h2 className={styles.cardTitle}>Theme: {theme}</h2>
-          <p className={styles.cardDesc}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique velit velit, eu
-            commodo purus ultricies quis. Donec vel ipsum semper, malesuada lectus ut, fringilla
-            metus.
-          </p>
+          <p className={styles.cardDesc}>{desc}</p>
           <div className={styles.cardFooter} role="status">
             <div className={styles.cardFooterItem}>
               <span>Gender:</span>

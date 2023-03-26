@@ -5,4 +5,5 @@ export interface ICardFormPage {
   surname: string;
   date: string;
   gender: string;
+  desc: string;
 }
