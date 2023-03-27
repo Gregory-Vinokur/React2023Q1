@@ -3,7 +3,7 @@ import { screen, render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import FormPage from './FormPage';
 
-describe('About component test', () => {
+describe('FormPage component test', () => {
   test('Renders the FormPage header', () => {
     render(<FormPage />);
     const header = screen.getByRole('heading', { level: 1 }) as HTMLElement;

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
-import styles from './Select.module.css';
+import styles from './SelectWithLabel.module.css';
+import Label from '../../atoms/label/Label';
+import Span from '../../atoms/typography/Span';
 
 type SelectProps = {
   options: SelectOption[];
   error?: string;
   selectRef?: React.RefObject<HTMLSelectElement>;
+  text?: string;
 };
 
 type SelectOption = {
@@ -14,9 +17,10 @@ type SelectOption = {
 
 class Select extends Component<SelectProps> {
   render() {
-    const { options, selectRef, error } = this.props;
+    const { options, selectRef, error, text } = this.props;
     return (
-      <>
+      <Label>
+        <Span>{text}</Span>
         <select className={styles.select} ref={selectRef}>
           <option value="">Select the theme:</option>
           {options.map(({ value, label }) => {
@@ -24,7 +28,7 @@ class Select extends Component<SelectProps> {
           })}
         </select>
         {error && <div style={{ color: 'red' }}>{error}</div>}
-      </>
+      </Label>
     );
   }
 }

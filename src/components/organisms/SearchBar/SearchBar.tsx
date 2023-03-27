@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styles from './SearchBar.module.css';
 import Icon from './../../atoms/icon/Icon';
 import search from '../../../assets/search.svg';
+import Input from './../../atoms/input/Input';
 
 class SearchBar extends Component {
   state = {
@@ -42,7 +43,7 @@ class SearchBar extends Component {
     return (
       <form className={styles.searchBar} onSubmit={this.handleFormSubmit}>
         <Icon source={search} />
-        <input
+        <Input
           className={styles.searchInput}
           type="text"
           value={this.state.searchBarValue as string}

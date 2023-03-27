@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import FormTemplate from './../../templates/Form/FormTemplate';
 import InputWithLabel from './../../molecules/input-with-label/InputWithLabel';
-import Select from './../../molecules/select/Select';
+import SelectWithLabel from '../../molecules/select-with-label/SelectWithLabel';
 import styles from './../../atoms/input/Input.module.css';
 import { ICardFormPage } from './../../../interfaces/ICardFormPage';
 import { IFormData } from './../../../interfaces/IFormData';
 import { IFormState } from './../../../interfaces/IFormState';
 import TeaxtareaWithLabel from './../../molecules/textarea-with-label/TextAreaWithLabel';
+import Switcher from './../../molecules/switcher/Switcher';
 
 interface IFormProps {
   createCard: (card: ICardFormPage) => void;
@@ -133,7 +134,7 @@ class Form extends Component<IFormProps, IFormState> {
           />
         </div>
         <InputWithLabel type="date" text="Date:" inputRef={this.dateRef} error={errors.date} />
-        <Select
+        <SelectWithLabel
           options={[
             { value: 'option1', label: 'Sport' },
             { value: 'option2', label: 'Meme' },
@@ -141,28 +142,14 @@ class Form extends Component<IFormProps, IFormState> {
           ]}
           selectRef={this.selectRef}
           error={errors.select}
+          text="Theme:"
         />
-        <div>
-          <InputWithLabel
-            className={styles.checkbox}
-            type="radio"
-            name="gender"
-            value="Male"
-            inputRef={this.maleRadioRef}
-            error={errors.radio}
-          >
-            Male
-          </InputWithLabel>
-          <InputWithLabel
-            className={styles.checkbox}
-            type="radio"
-            name="gender"
-            value="Female"
-            inputRef={this.femaleRadioRef}
-          >
-            Female
-          </InputWithLabel>
-        </div>
+        <Switcher
+          text="Gender:"
+          options={['Male', 'Female']}
+          inputRefs={[this.maleRadioRef, this.femaleRadioRef]}
+          error={errors.radio}
+        />
         <InputWithLabel
           type="file"
           accept="image/jpeg,image/png,image/gif"
