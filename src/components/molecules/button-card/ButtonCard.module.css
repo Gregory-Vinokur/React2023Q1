@@ -1,0 +1,18 @@
+.cardButton {
+  padding: 4px 12px;
+  background-color: #dbe4d1;
+  border-radius: 32px;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.cardButtonCounter {
+  color: #626d7a;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 500;
+}
