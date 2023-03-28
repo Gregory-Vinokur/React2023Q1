@@ -6,5 +6,5 @@ export interface IFormData {
   checkbox: string | boolean;
   radio: string;
   desc: string;
-  file: File | null;
+  file: FileList;
 }

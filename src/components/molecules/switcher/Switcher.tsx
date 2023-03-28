@@ -2,20 +2,21 @@ import React, { InputHTMLAttributes } from 'react';
 import Label from './../../atoms/label/Label';
 import Span from './../../atoms/typography/Span';
 import styles from './Switcher.module.css';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 interface SwitcherProps extends InputHTMLAttributes<HTMLInputElement> {
   text?: string;
   options: Array<string>;
   className?: string;
   error?: string;
-  inputRefs?: React.RefObject<HTMLInputElement>[];
+  register?: UseFormRegisterReturn<string>;
 }
 
-const Switcher = ({ text, options, inputRefs, error }: SwitcherProps) => {
+const Switcher = ({ text, options, error, register }: SwitcherProps) => {
   return (
     <Label>
       {text && <Span>{text}</Span>}
-      {options.map((option, index) => (
+      {options.map((option) => (
         <React.Fragment key={option}>
           <input
             className={styles.radio}
@@ -23,7 +24,7 @@ const Switcher = ({ text, options, inputRefs, error }: SwitcherProps) => {
             value={option}
             name={text}
             id={option}
-            ref={inputRefs && inputRefs[index]}
+            {...register}
           />
           <label htmlFor={option}>{option}</label>
         </React.Fragment>

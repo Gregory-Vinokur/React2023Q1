@@ -1,177 +1,117 @@
-import React, { Component } from 'react';
+import React from 'react';
 import FormTemplate from './../../templates/Form/FormTemplate';
 import InputWithLabel from './../../molecules/input-with-label/InputWithLabel';
 import SelectWithLabel from '../../molecules/select-with-label/SelectWithLabel';
 import styles from './../../atoms/input/Input.module.css';
 import { ICardFormPage } from './../../../interfaces/ICardFormPage';
 import { IFormData } from './../../../interfaces/IFormData';
-import { IFormState } from './../../../interfaces/IFormState';
 import TeaxtareaWithLabel from './../../molecules/textarea-with-label/TextAreaWithLabel';
 import Switcher from './../../molecules/switcher/Switcher';
+import { useForm } from 'react-hook-form';
 
 interface IFormProps {
   createCard: (card: ICardFormPage) => void;
 }
 
-class Form extends Component<IFormProps, IFormState> {
-  formRef: React.RefObject<HTMLFormElement>;
-  nameRef: React.RefObject<HTMLInputElement>;
-  surnameRef: React.RefObject<HTMLInputElement>;
-  dateRef: React.RefObject<HTMLInputElement>;
-  selectRef: React.RefObject<HTMLSelectElement>;
-  descRef: React.RefObject<HTMLTextAreaElement>;
-  checkboxRef: React.RefObject<HTMLInputElement>;
-  maleRadioRef: React.RefObject<HTMLInputElement>;
-  femaleRadioRef: React.RefObject<HTMLInputElement>;
-  fileRef: React.RefObject<HTMLInputElement>;
+const Form = ({ createCard }: IFormProps) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<IFormData>({ reValidateMode: 'onSubmit' });
 
-  constructor(props: IFormProps) {
-    super(props);
-    this.state = {
-      errors: {},
+  const onSubmit = (data: IFormData) => {
+    const files = data.file;
+    const file = data.file ? files[0] : null;
+    const picture = file ? URL.createObjectURL(file) : '';
+    const card: ICardFormPage = {
+      source: picture,
+      theme: data.select,
+      name: data.name,
+      surname: data.surname,
+      date: data.date,
+      gender: data.radio,
+      desc: data.desc,
     };
-    this.formRef = React.createRef();
-    this.nameRef = React.createRef();
-    this.surnameRef = React.createRef();
-    this.dateRef = React.createRef();
-    this.selectRef = React.createRef();
-    this.checkboxRef = React.createRef();
-    this.descRef = React.createRef();
-    this.maleRadioRef = React.createRef();
-    this.femaleRadioRef = React.createRef();
-    this.fileRef = React.createRef();
-  }
-
-  handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = {
-      name: this.nameRef.current ? this.nameRef.current.value : '',
-      surname: this.surnameRef.current ? this.surnameRef.current.value : '',
-      date: this.dateRef.current ? this.dateRef.current.value : '',
-      select: this.selectRef.current ? this.selectRef.current.value : '',
-      checkbox: this.checkboxRef.current ? this.checkboxRef.current.checked : '',
-      desc: this.descRef.current ? this.descRef.current.value : '',
-      radio: this.maleRadioRef.current?.checked
-        ? 'Male'
-        : this.femaleRadioRef.current?.checked
-        ? 'Female'
-        : '',
-      file: this.fileRef.current?.files ? this.fileRef.current.files[0] : null,
-    };
-    const errors = this.validateForm(formData);
-    if (Object.keys(errors).length > 0) {
-      this.setState({ errors });
-    } else {
-      const card: ICardFormPage = {
-        source: formData.file ? URL.createObjectURL(formData.file) : '',
-        theme: formData.select,
-        name: formData.name,
-        surname: formData.surname,
-        date: formData.date,
-        gender: formData.radio,
-        desc: formData.desc,
-      };
-      this.props.createCard(card);
-      this.formRef.current?.reset();
-      this.setState({ errors: {} });
-    }
+    createCard(card);
+    reset();
   };
 
-  validateForm = (formData: IFormData) => {
-    const errors: { [key: string]: string } = {};
-
-    if (!formData.name) {
-      errors.name = 'Name is required';
-    } else if (!/^[A-Z]/.test(formData.name)) {
-      errors.name = 'Name must start with an uppercase letter';
-    }
-
-    if (!formData.surname) {
-      errors.surname = 'Surname is required';
-    } else if (!/^[A-Z]/.test(formData.surname)) {
-      errors.surname = 'Surname must start with an uppercase letter';
-    }
-
-    if (!formData.date) {
-      errors.date = 'Date is required';
-    }
-
-    if (!formData.select) {
-      errors.select = 'Select is required';
-    }
-
-    if (!formData.radio) {
-      errors.radio = 'Gender is required';
-    }
-
-    if (!formData.file) {
-      errors.file = 'Choose af file';
-    }
-
-    if (!formData.desc) {
-      errors.desc = 'Please, write something';
-    }
-
-    if (!formData.checkbox) {
-      errors.checkbox = 'You must agree to post a card';
-    }
-
-    return errors;
-  };
-
-  render() {
-    const { errors } = this.state;
-
-    return (
-      <FormTemplate onSubmit={this.handleSubmit} formRef={this.formRef}>
-        <div>
-          <InputWithLabel type="text" text="Name:" inputRef={this.nameRef} error={errors.name} />
-          <InputWithLabel
-            type="text"
-            text="Surname:"
-            inputRef={this.surnameRef}
-            error={errors.surname}
-          />
-        </div>
-        <InputWithLabel type="date" text="Date:" inputRef={this.dateRef} error={errors.date} />
-        <SelectWithLabel
-          options={[
-            { value: 'option1', label: 'Sport' },
-            { value: 'option2', label: 'Meme' },
-            { value: 'option3', label: 'Cats' },
-          ]}
-          selectRef={this.selectRef}
-          error={errors.select}
-          text="Theme:"
-        />
-        <Switcher
-          text="Gender:"
-          options={['Male', 'Female']}
-          inputRefs={[this.maleRadioRef, this.femaleRadioRef]}
-          error={errors.radio}
+  return (
+    <FormTemplate onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <InputWithLabel
+          type="text"
+          text="Name:"
+          register={register('name', {
+            required: 'Name is required',
+            pattern: {
+              value: /^[A-Z]/,
+              message: 'Name must start with an uppercase letter',
+            },
+          })}
+          error={errors.name?.message}
         />
         <InputWithLabel
-          type="file"
-          accept="image/jpeg,image/png,image/gif"
-          className={styles.inputFile}
-          inputRef={this.fileRef}
-          error={errors.file}
-        >
-          Upload an image for the card.
-        </InputWithLabel>
-        <TeaxtareaWithLabel text="Description:" textareaRef={this.descRef} error={errors.desc} />
-        <InputWithLabel
-          type="checkbox"
-          className={styles.checkbox}
-          inputRef={this.checkboxRef}
-          error={errors.checkbox}
-        >
-          I agree to post a card.
-        </InputWithLabel>
-        <button type="submit">Create a card</button>
-      </FormTemplate>
-    );
-  }
-}
+          type="text"
+          text="Surname:"
+          register={register('surname', {
+            required: 'Surname is required',
+            pattern: {
+              value: /^[A-Z]/,
+              message: 'Surname must start with an uppercase letter',
+            },
+          })}
+          error={errors.surname?.message}
+        />
+      </div>
+      <InputWithLabel
+        type="date"
+        text="Date:"
+        register={register('date', { required: 'Date is required' })}
+        error={errors.date?.message}
+      />
+      <SelectWithLabel
+        options={[
+          { value: 'option1', label: 'Sport' },
+          { value: 'option2', label: 'Meme' },
+          { value: 'option3', label: 'Cats' },
+        ]}
+        text="Theme:"
+        register={register('select', { required: 'Select is required' })}
+        error={errors.select?.message}
+      />
+      <Switcher
+        text="Gender:"
+        options={['Male', 'Female']}
+        error={errors.radio?.message}
+        register={register('radio', { required: 'Gender is required' })}
+      />
+      <InputWithLabel
+        text="Upload an image for the card."
+        type="file"
+        accept="image/jpeg,image/png,image/gif"
+        className={styles.inputFile}
+        register={register('file', { required: 'Choose af file' })}
+        error={errors.file?.message}
+      ></InputWithLabel>
+      <TeaxtareaWithLabel
+        text="Description:"
+        register={register('desc', { required: 'Please, write something' })}
+        error={errors.desc?.message}
+      />
+      <InputWithLabel
+        type="checkbox"
+        className={styles.checkbox}
+        register={register('checkbox', { required: 'You must agree to post a card' })}
+        error={errors.checkbox?.message}
+      >
+        I agree to post a card.
+      </InputWithLabel>
+      <button type="submit">Create a card</button>
+    </FormTemplate>
+  );
+};
 
 export default Form;

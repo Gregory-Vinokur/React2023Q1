@@ -7,7 +7,6 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   accept?: string;
   value?: string;
-  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 const Input = ({ type, children, className, value, ...rest }: InputProps) => {

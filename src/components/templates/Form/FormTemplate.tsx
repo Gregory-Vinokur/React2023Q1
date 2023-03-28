@@ -3,12 +3,11 @@ import styles from './FormTemplate.module.css';
 
 interface FormTemplateProps extends FormHTMLAttributes<HTMLFormElement> {
   children?: React.ReactNode;
-  formRef?: React.RefObject<HTMLFormElement>;
 }
 
-const FormTemplate = ({ formRef, children, ...rest }: FormTemplateProps) => {
+const FormTemplate = ({ children, ...rest }: FormTemplateProps) => {
   return (
-    <form className={styles.form} ref={formRef} {...rest}>
+    <form className={styles.form} {...rest}>
       {children}
     </form>
   );

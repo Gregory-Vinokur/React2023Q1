@@ -1,4 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import Label from './../../atoms/label/Label';
 import Span from './../../atoms/typography/Span';
 
@@ -9,7 +10,7 @@ interface InputWithLabelProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   accept?: string;
   error?: string;
-  inputRef?: React.RefObject<HTMLInputElement>;
+  register?: UseFormRegisterReturn<string>;
 }
 
 const InputWithLabel = ({
@@ -17,14 +18,14 @@ const InputWithLabel = ({
   type,
   children,
   className,
-  inputRef,
   error,
+  register,
   ...rest
 }: InputWithLabelProps) => {
   return (
     <Label>
       <Span>{text}</Span>
-      <input type={type} className={className} ref={inputRef} {...rest} />
+      <input type={type} className={className} {...register} {...rest} />
       {children}
       {error && <div style={{ color: 'red' }}>{error}</div>}
     </Label>

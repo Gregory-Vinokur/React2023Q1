@@ -1,4 +1,5 @@
 import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './SelectWithLabel.module.css';
 import Label from '../../atoms/label/Label';
 import Span from '../../atoms/typography/Span';
@@ -6,8 +7,8 @@ import Span from '../../atoms/typography/Span';
 type SelectProps = {
   options: SelectOption[];
   error?: string;
-  selectRef?: React.RefObject<HTMLSelectElement>;
   text?: string;
+  register?: UseFormRegisterReturn<string>;
 };
 
 type SelectOption = {
@@ -15,11 +16,11 @@ type SelectOption = {
   label: string;
 };
 
-const SelectWithLabel = ({ options, selectRef, error, text }: SelectProps) => {
+const SelectWithLabel = ({ options, error, text, register, ...rest }: SelectProps) => {
   return (
     <Label>
       <Span>{text}</Span>
-      <select className={styles.select} ref={selectRef}>
+      <select className={styles.select} {...register} {...rest}>
         <option value="">Select the theme:</option>
         {options.map(({ value, label }) => {
           return <option key={value}>{label}</option>;
