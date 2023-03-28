@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './CardTemplate.module.css';
 
 type CardTemplateProps = {
   children?: React.ReactNode;
 };
 
-class CardTemplate extends Component<CardTemplateProps> {
-  render() {
-    return <form className={styles.card}>{this.props.children}</form>;
-  }
-}
+const CardTemplate = ({ children }: CardTemplateProps) => {
+  return <form className={styles.card}>{children}</form>;
+};
 
 export default CardTemplate;

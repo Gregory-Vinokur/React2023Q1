@@ -1,61 +1,52 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './SearchBar.module.css';
 import Icon from './../../atoms/icon/Icon';
 import search from '../../../assets/search.svg';
 import Input from './../../atoms/input/Input';
 
-class SearchBar extends Component {
-  state = {
-    searchBarValue: localStorage.getItem('searchBarValue_GV')
-      ? localStorage.getItem('searchBarValue_GV')
-      : '',
-  };
+const SearchBar = () => {
+  const [searchBarValue, setSearchBarValue] = useState<string>(
+    localStorage.getItem('searchBarValue_GV') || ''
+  );
 
-  componentDidMount() {
+  useEffect(() => {
     window.addEventListener('beforeunload', () => {
-      window.localStorage.setItem('searchBarValue_GV', this.state.searchBarValue as string);
+      localStorage.setItem('searchBarValue_GV', searchBarValue);
     });
-  }
+    return () => {
+      localStorage.setItem('searchBarValue_GV', searchBarValue);
+      window.removeEventListener('beforeunload', () => {
+        localStorage.setItem('searchBarValue_GV', searchBarValue);
+      });
+    };
+  }, [searchBarValue]);
 
-  componentWillUnmount() {
-    localStorage.setItem('searchBarValue_GV', this.state.searchBarValue as string);
-    window.removeEventListener('beforeunload', () => {
-      window.localStorage.setItem('searchBarValue_GV', this.state.searchBarValue as string);
-    });
-  }
-
-  saveSearchBarValue = (e: React.SyntheticEvent) => {
+  const saveSearchBarValue = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    this.setState({
-      searchBarValue: (e.target as HTMLInputElement).value,
-    });
+    setSearchBarValue((e.target as HTMLInputElement).value);
   };
 
-  handleFormSubmit = (e: React.SyntheticEvent) => {
+  const handleFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const newSearchBarValue = this.state.searchBarValue;
-    this.setState({
-      searchBarValue: newSearchBarValue,
-    });
+    const newSearchBarValue = searchBarValue;
+    setSearchBarValue(newSearchBarValue);
   };
 
-  render() {
-    return (
-      <form className={styles.searchBar} onSubmit={this.handleFormSubmit}>
-        <Icon source={search} />
-        <Input
-          className={styles.searchInput}
-          type="text"
-          value={this.state.searchBarValue as string}
-          onChange={this.saveSearchBarValue}
-          placeholder="Search for cards..."
-        />
-        <button className={styles.searchButton} type="submit">
-          Search
-        </button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className={styles.searchBar} onSubmit={handleFormSubmit}>
+      <Icon source={search} />
+      <Input
+        className={styles.searchInput}
+        type="text"
+        value={searchBarValue}
+        onChange={saveSearchBarValue}
+        placeholder="Search for cards..."
+      />
+      <button className={styles.searchButton} type="submit">
+        Search
+      </button>
+    </form>
+  );
+};
 
 export default SearchBar;

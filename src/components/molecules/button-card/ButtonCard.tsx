@@ -1,5 +1,5 @@
 import Button from '../../atoms/button/Button';
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './ButtonCard.module.css';
 import Icon from './../../atoms/icon/Icon';
 import Span from './../../atoms/typography/Span';
@@ -9,16 +9,13 @@ type ButtonCardProps = {
   counter: number | string;
 };
 
-class ButtonCard extends Component<ButtonCardProps> {
-  render() {
-    const { source, counter } = this.props;
-    return (
-      <Button className={styles.cardButton}>
-        <Icon source={source} />
-        <Span className={styles.cardButtonCounter}>{counter}</Span>
-      </Button>
-    );
-  }
-}
+const ButtonCard = ({ source, counter }: ButtonCardProps) => {
+  return (
+    <Button className={styles.cardButton}>
+      <Icon source={source} />
+      <Span className={styles.cardButtonCounter}>{counter}</Span>
+    </Button>
+  );
+};
 
 export default ButtonCard;
