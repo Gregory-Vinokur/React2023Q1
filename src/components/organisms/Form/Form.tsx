@@ -8,6 +8,12 @@ import { IFormData } from './../../../interfaces/IFormData';
 import TeaxtareaWithLabel from './../../molecules/textarea-with-label/TextAreaWithLabel';
 import Switcher from './../../molecules/switcher/Switcher';
 import { useForm } from 'react-hook-form';
+import {
+  descriptionValidation,
+  fileValidation,
+  nameValidation,
+  surnameValidation,
+} from './validation';
 
 interface IFormProps {
   createCard: (card: ICardFormPage) => void;
@@ -44,25 +50,13 @@ const Form = ({ createCard }: IFormProps) => {
         <InputWithLabel
           type="text"
           text="Name:"
-          register={register('name', {
-            required: 'Name is required',
-            pattern: {
-              value: /^[A-Z]/,
-              message: 'Name must start with an uppercase letter',
-            },
-          })}
+          register={register('name', { validate: nameValidation })}
           error={errors.name?.message}
         />
         <InputWithLabel
           type="text"
           text="Surname:"
-          register={register('surname', {
-            required: 'Surname is required',
-            pattern: {
-              value: /^[A-Z]/,
-              message: 'Surname must start with an uppercase letter',
-            },
-          })}
+          register={register('surname', { validate: surnameValidation })}
           error={errors.surname?.message}
         />
       </div>
@@ -95,28 +89,13 @@ const Form = ({ createCard }: IFormProps) => {
         className={styles.inputFile}
         register={register('file', {
           required: 'Choose a file',
-          validate: {
-            isImage: (value) => {
-              const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
-              const file = value[0];
-              if (!allowedImageTypes.includes(file.type)) {
-                return 'Only image files are allowed';
-              }
-              return true;
-            },
-          },
+          validate: fileValidation,
         })}
         error={errors.file?.message}
       />
       <TeaxtareaWithLabel
         text="Description:"
-        register={register('desc', {
-          required: 'Please, write something',
-          pattern: {
-            value: /^\S.*$/,
-            message: 'Description must not start with a space',
-          },
-        })}
+        register={register('desc', { validate: descriptionValidation })}
         error={errors.desc?.message}
       />
       <InputWithLabel
