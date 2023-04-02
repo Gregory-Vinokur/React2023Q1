@@ -91,14 +91,32 @@ const Form = ({ createCard }: IFormProps) => {
       <InputWithLabel
         text="Upload an image for the card."
         type="file"
-        accept="image/jpeg,image/png,image/gif"
+        accept="image/jpeg,image/png,image/gif,image/svg+xml"
         className={styles.inputFile}
-        register={register('file', { required: 'Choose af file' })}
+        register={register('file', {
+          required: 'Choose a file',
+          validate: {
+            isImage: (value) => {
+              const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml'];
+              const file = value[0];
+              if (!allowedImageTypes.includes(file.type)) {
+                return 'Only image files are allowed';
+              }
+              return true;
+            },
+          },
+        })}
         error={errors.file?.message}
-      ></InputWithLabel>
+      />
       <TeaxtareaWithLabel
         text="Description:"
-        register={register('desc', { required: 'Please, write something' })}
+        register={register('desc', {
+          required: 'Please, write something',
+          pattern: {
+            value: /^\S.*$/,
+            message: 'Description must not start with a space',
+          },
+        })}
         error={errors.desc?.message}
       />
       <InputWithLabel
