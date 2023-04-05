@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './SearchBar.module.css';
 import Icon from './../../atoms/icon/Icon';
 import search from '../../../assets/search.svg';
@@ -11,23 +11,22 @@ interface ISearchBarProps {
 }
 
 const SearchBar = ({ onSearch }: ISearchBarProps) => {
-  const [searchTerm, setSearchTerm] = useState<string>(localStorage.getItem('searchTerm') || '');
+  const [searchTerm, setSearchTerm] = useState<string>(localStorage.getItem('searchTerm') || 'cat');
+  const [searchBarValue, setSearchBarValue] = useState<string>(
+    localStorage.getItem('searchTerm') || ''
+  );
   const [searchResults, setSearchResults] = useState<ICardHomePage[]>([]);
+  const searchInputRef = useRef(searchBarValue);
 
   useEffect(() => {
-    window.addEventListener('beforeunload', () => {
-      localStorage.setItem('searchTerm', searchTerm);
-    });
-    return () => {
-      localStorage.setItem('searchTerm', searchTerm);
-      window.removeEventListener('beforeunload', () => {
-        localStorage.setItem('searchTerm', searchTerm);
-      });
-    };
-  }, [searchTerm]);
+    const savedSearchBarValue = localStorage.getItem('searchTerm') || '';
+    setSearchBarValue(savedSearchBarValue);
+  }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setSearchTerm(searchInputRef.current);
+    setSearchBarValue(event.target.value);
+    searchInputRef.current = event.target.value;
   };
 
   const handleFormSubmit = async (event: React.SyntheticEvent) => {
@@ -35,6 +34,7 @@ const SearchBar = ({ onSearch }: ISearchBarProps) => {
     const photos = await searchPhotos(searchTerm);
     setSearchResults(photos);
     onSearch(searchTerm, searchResults);
+    localStorage.setItem('searchTerm', searchInputRef.current);
   };
 
   return (
@@ -43,9 +43,9 @@ const SearchBar = ({ onSearch }: ISearchBarProps) => {
       <Input
         className={styles.searchInput}
         type="text"
-        value={searchTerm}
+        value={searchBarValue}
         onChange={handleInputChange}
-        placeholder="Search for photos..."
+        placeholder="Type something. For example, 'dogs'"
       />
       <button className={styles.searchButton} type="submit">
         Search

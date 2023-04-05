@@ -9,7 +9,7 @@ import ProgressBar from './../../components/molecules/progress-bar/ProgressBar';
 
 const Home = () => {
   const [searchResults, setSearchResults] = useState<ICardHomePage[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('cat');
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ const Home = () => {
       {!isLoading && (
         <div data-testid="cards__container" className={styles.cardsContainer}>
           {searchResults.length === 0 ? (
-            <p>No results</p>
+            <p className={styles.noResultText}>No results</p>
           ) : (
             searchResults.map((card, index) => <Card {...card} key={index} />)
           )}
