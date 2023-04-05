@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './SearchBar.module.css';
 import Icon from './../../atoms/icon/Icon';
 import search from '../../../assets/search.svg';
@@ -9,21 +9,22 @@ const SearchBar = () => {
     localStorage.getItem('searchBarValue_GV') || ''
   );
 
+  const searchInputRef = useRef(searchBarValue);
+
   useEffect(() => {
-    window.addEventListener('beforeunload', () => {
-      localStorage.setItem('searchBarValue_GV', searchBarValue);
-    });
+    const newSearchBarValue = localStorage.getItem('searchBarValue_GV') || '';
+    setSearchBarValue(newSearchBarValue);
+
     return () => {
-      localStorage.setItem('searchBarValue_GV', searchBarValue);
-      window.removeEventListener('beforeunload', () => {
-        localStorage.setItem('searchBarValue_GV', searchBarValue);
-      });
+      localStorage.setItem('searchBarValue_GV', searchInputRef.current);
     };
-  }, [searchBarValue]);
+  }, []);
 
   const saveSearchBarValue = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setSearchBarValue((e.target as HTMLInputElement).value);
+    const value = (e.target as HTMLInputElement).value;
+    setSearchBarValue(value);
+    searchInputRef.current = value;
   };
 
   const handleFormSubmit = (e: React.SyntheticEvent) => {
