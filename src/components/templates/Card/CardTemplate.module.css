@@ -7,4 +7,5 @@
   width: 350px;
   height: 485px;
   overflow: hidden;
+  cursor: pointer;
 }

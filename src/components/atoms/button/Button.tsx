@@ -7,7 +7,11 @@ export type ButtonProps = {
 
 const Button = ({ children, className, ...rest }: ButtonProps) => {
   return (
-    <button className={className} {...rest}>
+    <button
+      className={className}
+      {...rest}
+      onClick={(e: React.SyntheticEvent) => e.preventDefault()}
+    >
       {children}
     </button>
   );

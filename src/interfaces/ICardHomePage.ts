@@ -1,8 +1,10 @@
 export interface ICardHomePage {
-  color: string;
-  likes: number | string;
-  comments: number | string;
-  shares: number | string;
+  id?: string;
+  url: string;
+  title: string;
+  likes: number;
   author: string;
   date: string;
+  description: string;
+  tags: string[];
 }

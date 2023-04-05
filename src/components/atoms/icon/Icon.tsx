@@ -6,7 +6,7 @@ type IconProps = {
 };
 
 const Icon = ({ source }: IconProps) => {
-  return <i className={styles.icon} style={{ background: `url(${source})` }}></i>;
+  return <img className={styles.icon} src={source}></img>;
 };
 
 export default Icon;

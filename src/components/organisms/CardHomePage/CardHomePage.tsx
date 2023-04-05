@@ -1,38 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './CardHomePage.module.css';
 import { ICardHomePage } from '../../../interfaces/ICardHomePage';
 import like from '../../../assets/like.svg';
-import comment from '../../../assets/comment.svg';
-import share from '../../../assets/share.svg';
+import hashtag from '../../../assets/hashtag.svg';
 import ButtonCard from '../../molecules/button-card/ButtonCard';
 import CardTemplate from '../../templates/Card/CardTemplate';
+import ModalCard from './../ModalCard/ModalCard';
+import Blackout from '../../atoms/blackout/Blackout';
 
-const Card = ({ color, likes, comments, shares, author, date }: ICardHomePage) => {
+const Card = ({ url, likes, author, date, title, tags, description }: ICardHomePage) => {
+  const [selectedCard, setSelectedCard] = useState<ICardHomePage | null>(null);
+
+  const handleCardClick = (card: ICardHomePage | null) => {
+    setSelectedCard(card);
+  };
+
   return (
-    <CardTemplate>
-      <div className={styles.imageContainer}>
-        <div className={styles.image} style={{ backgroundColor: `${color}` }}>
-          Card Image
+    <>
+      <CardTemplate
+        onClick={() => handleCardClick({ url, likes, author, date, title, tags, description })}
+      >
+        <div className={styles.imageContainer}>
+          <img className={styles.image} src={url}></img>
         </div>
-      </div>
-      <div className={styles.content}>
-        <h2 className={styles.cardTitle}>Card Title</h2>
-        <p className={styles.cardDesc}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique velit velit, eu
-          commodo purus ultricies quis. Donec vel ipsum semper, malesuada lectus ut, fringilla
-          metus.
-        </p>
-        <div className={styles.cardButtons}>
-          <ButtonCard source={like} counter={likes} />
-          <ButtonCard source={comment} counter={comments} />
-          <ButtonCard source={share} counter={shares} />
+        <div className={styles.content}>
+          <h2 className={styles.cardTitle}>{title}</h2>
+          <div className={styles.cardButtons}>
+            <ButtonCard source={like} counter={likes} />
+            <ButtonCard source={hashtag} counter={tags[0]} />
+            <ButtonCard source={hashtag} counter={tags[1]} />
+          </div>
+          <div className={styles.cardFooter} role="status">
+            <span>Created by: {author}</span>
+            <span>{date}</span>
+          </div>
         </div>
-        <div className={styles.cardFooter} role="status">
-          <span>Created by: {author}</span>
-          <span>{date}</span>
-        </div>
-      </div>
-    </CardTemplate>
+      </CardTemplate>
+      {selectedCard && (
+        <>
+          <Blackout onClose={() => setSelectedCard(null)} />
+          <ModalCard card={selectedCard} onClose={() => setSelectedCard(null)} />
+        </>
+      )}
+    </>
   );
 };
 

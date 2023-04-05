@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import React from 'react';
-import cards from '../../data/cards';
+import cards from '../../data/searchPhotos';
 import Home from './Home';
 
 describe('Home component test', () => {
