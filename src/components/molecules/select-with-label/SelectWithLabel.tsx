@@ -3,6 +3,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import styles from './SelectWithLabel.module.css';
 import Label from '../../atoms/label/Label';
 import Span from '../../atoms/typography/Span';
+import Error from '../../atoms/error/Error';
 
 type SelectProps = {
   options: SelectOption[];
@@ -26,7 +27,7 @@ const SelectWithLabel = ({ options, error, text, register, ...rest }: SelectProp
           return <option key={value}>{label}</option>;
         })}
       </select>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <Error error={error} />}
     </Label>
   );
 };

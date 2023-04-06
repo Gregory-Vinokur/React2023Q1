@@ -6,7 +6,7 @@ import hashtag from '../../../assets/hashtag.svg';
 import ButtonCard from '../../molecules/button-card/ButtonCard';
 import CardTemplate from '../../templates/Card/CardTemplate';
 import ModalCard from './../ModalCard/ModalCard';
-import Blackout from '../../atoms/blackout/Blackout';
+import Blackout from '../../../layouts/blackout/Blackout';
 
 const Card = ({ url, likes, author, date, title, tags, description }: ICardHomePage) => {
   const [selectedCard, setSelectedCard] = useState<ICardHomePage | null>(null);

@@ -7,17 +7,25 @@ import NotFound from './pages/404/NotFound';
 import MainLayout from './layouts/MainLayout';
 import FormPage from './pages/FormPage/FormPage';
 
+export enum PATH {
+  HOME = '/',
+  ABOUT = 'about',
+  FORM = 'form',
+  ERROR = '404',
+  DEFAULT = '*',
+}
+
 const App = () => {
   return (
     <BrowserRouter>
       <div className="App">
         <Routes>
-          <Route path="/" element={<MainLayout />}>
+          <Route path={PATH.HOME} element={<MainLayout />}>
             <Route index element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="form" element={<FormPage />} />
-            <Route path="404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" replace />} />
+            <Route path={PATH.ABOUT} element={<About />} />
+            <Route path={PATH.FORM} element={<FormPage />} />
+            <Route path={PATH.ERROR} element={<NotFound />} />
+            <Route path={PATH.DEFAULT} element={<Navigate to="/404" replace />} />
           </Route>
         </Routes>
       </div>

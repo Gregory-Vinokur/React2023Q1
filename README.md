@@ -1,6 +1,6 @@
 # React2023Q1
 
-## Module 01. React. Components.
+## Module 01. React. API.
 
 ## Available Scripts
 
@@ -23,4 +23,4 @@ Launches the test runner in the interactive watch mode.
 
 ### `npm run lint`
 
-Launches the ESLint formatter.\
+Launches the ESLint formatter.

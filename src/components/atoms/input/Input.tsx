@@ -14,7 +14,7 @@ const Input = ({ type, children, className, value, ...rest }: InputProps) => {
     <input
       type={type}
       className={className ? className : styles.input}
-      value={value ? value : ''}
+      value={value || ''}
       {...rest}
     >
       {children}

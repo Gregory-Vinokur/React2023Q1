@@ -2,6 +2,7 @@ import React, { TextareaHTMLAttributes } from 'react';
 import Label from './../../atoms/label/Label';
 import Span from './../../atoms/typography/Span';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import Error from '../../atoms/error/Error';
 
 interface TextareaWithLabelProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   text?: string;
@@ -24,7 +25,7 @@ const TeaxtareaWithLabel = ({
       <Span>{text}</Span>
       <textarea className={className} {...register} {...rest} />
       {children}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <Error error={error} />}
     </Label>
   );
 };

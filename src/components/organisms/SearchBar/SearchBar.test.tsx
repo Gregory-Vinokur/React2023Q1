@@ -5,23 +5,15 @@ import React from 'react';
 
 describe('SearchBar component tests', () => {
   test('Render SearchBar component', () => {
-    render(<SearchBar />);
+    render(<SearchBar onSearch={() => {}} />);
     const form = screen.getByRole('textbox') as HTMLFormElement;
     expect(form).toBeDefined();
   });
 
   test('Input values in SearchBar component', () => {
-    render(<SearchBar />);
+    render(<SearchBar onSearch={() => {}} />);
     const input = screen.getByRole('textbox') as HTMLInputElement;
     fireEvent.input(input, { target: { value: 'test value' } });
     expect(input.value).toBe('test value');
-  });
-
-  test('Save input to local storage on component unmount', () => {
-    const { unmount } = render(<SearchBar />);
-    const input = screen.getByRole('textbox') as HTMLInputElement;
-    fireEvent.input(input, { target: { value: 'test value' } });
-    unmount();
-    expect(localStorage.getItem('searchBarValue_GV')).toBe('test value');
   });
 });

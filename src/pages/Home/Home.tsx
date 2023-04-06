@@ -47,7 +47,7 @@ const Home = () => {
           {searchResults.length === 0 ? (
             <p className={styles.noResultText}>No results</p>
           ) : (
-            searchResults.map((card, index) => <Card {...card} key={index} />)
+            searchResults.map((card) => <Card {...card} key={card.id} />)
           )}
         </div>
       )}

@@ -1,13 +1,37 @@
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import React from 'react';
-import cards from '../../data/searchPhotos';
+import { vi } from 'vitest';
+import '@testing-library/jest-dom';
 import Home from './Home';
 
-describe('Home component test', () => {
-  test('Render all cards from the data', () => {
+vi.mock('../../data/searchPhotos');
+
+describe('Home page tests', () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test('Renders the FormPage header', () => {
     render(<Home />);
-    const cardsContainer = screen.getByTestId('cards__container');
-    expect(cardsContainer.childNodes.length).toBe(cards.length);
+    const header = screen.getByRole('heading', { level: 1 }) as HTMLElement;
+    const headerText = screen.getByText('Home');
+    expect(header).toBeDefined();
+    expect(headerText).toBeDefined();
+    expect(header).toContainElement(headerText);
+  });
+
+  test('Renders Home component with search bar and progress bar', () => {
+    render(<Home />);
+    const searchBar = screen.getByRole('textbox') as HTMLFormElement;
+    const progressBar = screen.getByRole('progressbar');
+    expect(searchBar).toBeInTheDocument();
+    expect(progressBar).toBeInTheDocument();
+  });
+
+  test('Loads search term from local storage on mount', () => {
+    localStorage.setItem('searchTerm', 'cat');
+    render(<Home />);
+    const input = screen.getByRole('textbox') as HTMLInputElement;
+    expect(input.value).toBe('cat');
   });
 });

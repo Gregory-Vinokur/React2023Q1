@@ -3,6 +3,7 @@ import Label from './../../atoms/label/Label';
 import Span from './../../atoms/typography/Span';
 import styles from './Switcher.module.css';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import Error from '../../atoms/error/Error';
 
 interface SwitcherProps extends InputHTMLAttributes<HTMLInputElement> {
   text?: string;
@@ -29,7 +30,7 @@ const Switcher = ({ text, options, error, register }: SwitcherProps) => {
           <label htmlFor={option}>{option}</label>
         </React.Fragment>
       ))}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <Error error={error} />}
     </Label>
   );
 };

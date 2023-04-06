@@ -2,6 +2,7 @@ import React, { InputHTMLAttributes } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import Label from './../../atoms/label/Label';
 import Span from './../../atoms/typography/Span';
+import Error from '../../atoms/error/Error';
 
 interface InputWithLabelProps extends InputHTMLAttributes<HTMLInputElement> {
   text?: string;
@@ -27,7 +28,7 @@ const InputWithLabel = ({
       <Span>{text}</Span>
       <input type={type} className={className} {...register} {...rest} />
       {children}
-      {error && <div style={{ color: 'red' }}>{error}</div>}
+      {error && <Error error={error} />}
     </Label>
   );
 };
