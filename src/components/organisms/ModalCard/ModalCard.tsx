@@ -7,7 +7,15 @@ import styles from './ModalCard.module.css';
 import Modal from '../../templates/Modal/Modal';
 import close from '../../../assets/close.svg';
 
-const ModalCard = ({ card, onClose }: { card: ICardHomePage; onClose: () => void }) => {
+const ModalCard = ({
+  description,
+  card,
+  onClose,
+}: {
+  description: string;
+  card: ICardHomePage;
+  onClose: () => void;
+}) => {
   return (
     <Modal className={styles.modalContainer} onClick={onClose}>
       <div className={styles.modalContent}>
@@ -21,7 +29,7 @@ const ModalCard = ({ card, onClose }: { card: ICardHomePage; onClose: () => void
           <div className={styles.imageContainer}>
             <img className={styles.modalImage} src={card.url} alt={card.title} />
           </div>
-          <p className={styles.modalDescription}>{card.description}</p>
+          <p className={styles.modalDescription}>{description}</p>
           <div className={styles.cardButtons}>
             <ButtonCard source={like} counter={card.likes} />
             {card.tags.map((tag, index) => (

@@ -5,6 +5,6 @@ export interface ICardHomePage {
   likes: number;
   author: string;
   date: string;
-  description: string;
+  description?: string;
   tags: string[];
 }

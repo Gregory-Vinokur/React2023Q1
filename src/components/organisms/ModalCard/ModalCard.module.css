@@ -8,6 +8,7 @@
   height: 850px;
   border-radius: 15px;
   overflow: hidden;
+  animation: slide-up 600ms ease-out forwards;
 }
 
 .modalContent {
@@ -65,6 +66,8 @@
 .modalDescription {
   font-size: 1.2rem;
   line-height: 1.5;
+  overflow: auto;
+  max-height: 85px;
 }
 
 .cardButtons {
@@ -80,4 +83,15 @@
   justify-content: space-between;
   font-size: 0.9rem;
   color: #808080;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 0%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
 }

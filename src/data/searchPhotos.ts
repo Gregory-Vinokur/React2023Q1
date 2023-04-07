@@ -36,20 +36,15 @@ export async function searchPhotos(searchTerm: string): Promise<ICardHomePage[]>
     throw new Error(data.errors[0]);
   }
 
-  console.log(data);
-
   const photos = data.results.map((photo: Photo) => ({
     id: photo.id,
     url: photo.urls.regular,
     title: photo.user.location || 'No location',
-    description: photo.description || photo.alt_description || 'No description',
     likes: photo.likes,
     author: photo.user.name,
     date: new Date(photo.created_at).toLocaleDateString(),
     tags: photo.tags.map((tag: Tag) => tag.title),
   }));
-
-  console.log(photos);
 
   return photos;
 }
