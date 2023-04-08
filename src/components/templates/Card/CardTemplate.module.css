@@ -9,3 +9,10 @@
   overflow: hidden;
   cursor: pointer;
 }
+
+@media (max-width: 380px) {
+  .card {
+    width: 300px;
+    height: 420px;
+  }
+}

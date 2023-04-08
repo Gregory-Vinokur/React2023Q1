@@ -49,3 +49,69 @@
 .searchButton:hover {
   background-color: #1d8181;
 }
+
+@media (max-width: 1240px) {
+  .searchBar {
+    width: 40%;
+    margin: 20px auto;
+  }
+}
+
+@media (max-width: 1095px) {
+  .searchBar {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .searchBar {
+    width: 80%;
+    margin: 20px auto;
+  }
+
+  .searchInput {
+    font-size: 16px;
+  }
+
+  .searchButton {
+    width: 70px;
+    height: 30px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchBar {
+    width: 90%;
+    margin: 10px auto;
+    height: 60px;
+    padding: 0 10px;
+  }
+
+  .searchInput {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .searchButton {
+    width: 60px;
+    height: 25px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .searchBar {
+    width: 95%;
+    margin-left: 20px;
+  }
+
+  .searchInput {
+    font-size: 12px;
+  }
+  .searchButton {
+    width: 49px;
+    height: 25px;
+    font-size: 11px;
+  }
+}
