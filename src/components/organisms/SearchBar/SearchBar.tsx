@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch }: ISearchBarProps) => {
   }, []);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(searchInputRef.current);
+    setSearchTerm(event.target.value);
     setSearchBarValue(event.target.value);
     searchInputRef.current = event.target.value;
   };
