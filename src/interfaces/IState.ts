@@ -1,4 +1,5 @@
 import { ICardHomePage } from 'interfaces/ICardHomePage';
+import { ICardFormPage } from './ICardFormPage';
 
 export interface IState {
   search: {
@@ -6,5 +7,9 @@ export interface IState {
     searchBarValue: string;
     searchResults: ICardHomePage[];
     isLoading?: boolean;
+  };
+  form: {
+    cards: ICardFormPage[];
+    showPopup: boolean;
   };
 }

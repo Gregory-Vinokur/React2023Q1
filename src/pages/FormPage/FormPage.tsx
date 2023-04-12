@@ -1,20 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './FormPage.module.css';
 import Form from '../../components/organisms/Form/Form';
 import Header from '../../components/molecules/header/Header';
 import { ICardFormPage } from './../../interfaces/ICardFormPage';
 import CardFormPage from './../../components/organisms/CardFormPage/CardFormPage';
 import Popup from './../../components/templates/Popup/Popup';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from './../../interfaces/IState';
+import { setCards, setShowPopup } from '../../store/Form/FormSlice';
 
 const FormPage = () => {
-  const [cards, setCards] = useState<ICardFormPage[]>([]);
-  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const { cards, showPopup } = useSelector((state: IState) => state.form);
 
   const onCreate = (card: ICardFormPage) => {
-    setShowPopup(true);
-    setCards([...cards, card]);
+    dispatch(setShowPopup(true));
+    dispatch(setCards([...cards, card]));
     setTimeout(() => {
-      setShowPopup(false);
+      dispatch(setShowPopup(false));
     }, 3000);
   };
 
