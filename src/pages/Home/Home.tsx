@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './Home.module.css';
 import Card from '../../components/organisms/CardHomePage/CardHomePage';
 import SearchBar from './../../components/organisms/SearchBar/SearchBar';
@@ -6,34 +6,35 @@ import Header from './../../components/molecules/header/Header';
 import { ICardHomePage } from '../../interfaces/ICardHomePage';
 import { searchPhotos } from '../../data/searchPhotos';
 import ProgressBar from './../../components/molecules/progress-bar/ProgressBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from 'interfaces/IState';
+import {
+  setIsLoading,
+  setSearchResults,
+  setSearchTerm,
+} from '../../store/SearchBar/SearchBarSlice';
 
 const Home = () => {
-  const [searchResults, setSearchResults] = useState<ICardHomePage[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('cat');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const { searchResults, isLoading } = useSelector((state: IState) => state.search);
 
   useEffect(() => {
-    const savedSearchTerm = localStorage.getItem('searchTerm');
-    if (savedSearchTerm) {
-      setSearchTerm(savedSearchTerm);
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchPhotos = async () => {
-      if (searchTerm) {
-        setIsLoading(true);
+    const getPhotos = async () => {
+      if (searchResults.length > 0) {
+        dispatch(setIsLoading(true));
         await new Promise((resolve) => setTimeout(resolve, 1500));
-        const photos = await searchPhotos(searchTerm);
-        setSearchResults([...photos]);
-        setIsLoading(false);
+        dispatch(setIsLoading(false));
+      } else {
+        const photos = await searchPhotos('cat');
+        dispatch(setSearchResults([...photos]));
       }
+      console.log(searchResults);
     };
-    fetchPhotos();
-  }, [searchTerm]);
+    getPhotos();
+  }, [dispatch, searchResults]);
 
   const handleSearch = (searchTerm: string, results: ICardHomePage[]) => {
-    setSearchTerm(searchTerm);
+    dispatch(setSearchTerm(searchTerm));
     setSearchResults(results);
   };
 
