@@ -7,15 +7,17 @@ import ButtonCard from '../../molecules/button-card/ButtonCard';
 import CardTemplate from '../../templates/Card/CardTemplate';
 import ModalCard from './../ModalCard/ModalCard';
 import Blackout from '../../../layouts/blackout/Blackout';
-import { searchPhotoById } from '../../../data/searchPhotoById';
+import { useLazySearchPhotoByIdQuery } from '../../../data/api';
 
 const Card = ({ id, url, likes, author, date, title, tags }: ICardHomePage) => {
   const [selectedCard, setSelectedCard] = useState<ICardHomePage | null>(null);
   const [cardDesc, setCardDesc] = useState<string>('');
+  const [searchPhotoById] = useLazySearchPhotoByIdQuery();
 
   const handleCardClick = async (card: ICardHomePage | null) => {
     setSelectedCard(card);
-    const description = await searchPhotoById(id);
+    const response = await searchPhotoById(id ?? '');
+    const description = response.data ?? '';
     setCardDesc(description);
   };
 
