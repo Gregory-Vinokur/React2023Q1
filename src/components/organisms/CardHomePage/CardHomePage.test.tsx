@@ -2,9 +2,17 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CardHomePage from './CardHomePage';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import searchReducer from '../../../store/SearchBar/SearchBarSlice';
 
 describe('Cards tests', () => {
   test('Renders card with correct props', () => {
+    const mockStore = configureStore({
+      reducer: {
+        search: searchReducer,
+      },
+    });
     const props = {
       id: '1',
       url: 'https://images.unsplash.com/photo-1517849845537-4d257902454a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNTM0NTN8MHwxfHNlYXJjaHwxfHxkb2d8ZW58MHx8fHwxNjgwNjI5MDEz&ixlib=rb-4.0.3&q=80&w=1080',
@@ -17,7 +25,11 @@ describe('Cards tests', () => {
       date: 'March 17, 2023',
     };
 
-    render(<CardHomePage {...props} />);
+    render(
+      <Provider store={mockStore}>
+        <CardHomePage {...props} />
+      </Provider>
+    );
 
     const cardTitle = screen.getByText(/title/i);
     const cardImage = screen.getAllByRole('img');

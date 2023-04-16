@@ -3,6 +3,7 @@ import { ICardHomePage } from '../../../interfaces/ICardHomePage';
 import ButtonCard from './../../molecules/button-card/ButtonCard';
 import like from '../../../assets/like.svg';
 import hashtag from '../../../assets/hashtag.svg';
+import close from '../../../assets/close.svg';
 import styles from './ModalCard.module.css';
 import Modal from '../../templates/Modal/Modal';
 import ProgressBar from './../../molecules/progress-bar/ProgressBar';
@@ -25,7 +26,7 @@ const ModalCard = ({
             <div className={styles.modalHeader}>
               <h2 className={styles.modalTitle}>{card.title}</h2>
               <button className={styles.modalClose} onClick={onClose}>
-                <div className={styles.closeItem} />
+                <img src={close} alt="close button" className={styles.closeItem} />
               </button>
             </div>
             <div className={styles.modalBody}>

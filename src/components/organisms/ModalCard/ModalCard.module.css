@@ -42,7 +42,6 @@
 .closeItem {
   width: 20px;
   height: 20px;
-  background: url(../../../assets/close.svg) no-repeat;
 }
 
 .modalBody {

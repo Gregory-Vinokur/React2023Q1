@@ -66,4 +66,5 @@ export const unsplashApi = createApi({
   },
 });
 
-export const { useLazySearchPhotoByIdQuery, useSearchPhotosQuery } = unsplashApi;
+export const { useLazySearchPhotoByIdQuery, useSearchPhotosQuery, useLazySearchPhotosQuery } =
+  unsplashApi;

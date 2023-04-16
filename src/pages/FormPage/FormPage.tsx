@@ -27,9 +27,7 @@ const FormPage = () => {
       <Form createCard={onCreate} />
       {showPopup && <Popup message="Card created successfully!" />}
       <div className={styles.cardsContainer}>
-        {cards.map((card, index) => (
-          <CardFormPage {...card} key={index} />
-        ))}
+        {cards && cards.map((card, index) => <CardFormPage {...card} key={index} />)}
       </div>
     </>
   );

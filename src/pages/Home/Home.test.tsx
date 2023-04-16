@@ -1,18 +1,27 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
-import { vi } from 'vitest';
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import searchReducer from '../../store/SearchBar/SearchBarSlice';
 import Home from './Home';
-
-vi.mock('../../data/searchPhotos');
+import { unsplashApi } from './../../data/api';
 
 describe('Home page tests', () => {
-  beforeEach(() => {
-    localStorage.clear();
+  const mockStore = configureStore({
+    reducer: {
+      search: searchReducer,
+      [unsplashApi.reducerPath]: unsplashApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(unsplashApi.middleware),
   });
 
   test('Renders the FormPage header', () => {
-    render(<Home />);
+    render(
+      <Provider store={mockStore}>
+        <Home />
+      </Provider>
+    );
     const header = screen.getByRole('heading', { level: 1 }) as HTMLElement;
     const headerText = screen.getByText('Home');
     expect(header).toBeDefined();
@@ -21,17 +30,14 @@ describe('Home page tests', () => {
   });
 
   test('Renders Home component with search bar and progress bar', () => {
-    render(<Home />);
+    render(
+      <Provider store={mockStore}>
+        <Home />
+      </Provider>
+    );
     const searchBar = screen.getByRole('textbox') as HTMLFormElement;
     const progressBar = screen.getByRole('progressbar');
     expect(searchBar).toBeInTheDocument();
     expect(progressBar).toBeInTheDocument();
-  });
-
-  test('Loads search term from local storage on mount', () => {
-    localStorage.setItem('searchTerm', 'cat');
-    render(<Home />);
-    const input = screen.getByRole('textbox') as HTMLInputElement;
-    expect(input.value).toBe('cat');
   });
 });
