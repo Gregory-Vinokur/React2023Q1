@@ -7,7 +7,7 @@ export interface CardTemplateProps extends React.HTMLProps<HTMLDivElement> {
 
 const CardTemplate = ({ children, ...rest }: CardTemplateProps) => {
   return (
-    <div className={styles.card} {...rest}>
+    <div data-testid="card" className={styles.card} {...rest}>
       {children}
     </div>
   );

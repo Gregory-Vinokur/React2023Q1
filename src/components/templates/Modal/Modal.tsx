@@ -6,7 +6,11 @@ export interface ModalProps extends React.HTMLProps<HTMLDivElement> {
 }
 
 const Modal = ({ children, className }: ModalProps) => {
-  return <div className={className}>{children}</div>;
+  return (
+    <div data-testid="modal-card" className={className}>
+      {children}
+    </div>
+  );
 };
 
 export default Modal;

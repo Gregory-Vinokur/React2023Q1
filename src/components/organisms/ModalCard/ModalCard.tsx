@@ -24,16 +24,25 @@ const ModalCard = ({
         {description && (
           <>
             <div className={styles.modalHeader}>
-              <h2 className={styles.modalTitle}>{card.title}</h2>
+              <h2 data-testid="modal-title" className={styles.modalTitle}>
+                {card.title}
+              </h2>
               <button className={styles.modalClose} onClick={onClose}>
                 <img src={close} alt="close button" className={styles.closeItem} />
               </button>
             </div>
             <div className={styles.modalBody}>
               <div className={styles.imageContainer}>
-                <img className={styles.modalImage} src={card.url} alt={card.title} />
+                <img
+                  data-testid="modal-image"
+                  className={styles.modalImage}
+                  src={card.url}
+                  alt={card.title}
+                />
               </div>
-              <p className={styles.modalDescription}>{description}</p>
+              <p data-testid="modal-description" className={styles.modalDescription}>
+                {description}
+              </p>
               <div className={styles.cardButtons}>
                 <ButtonCard source={like} counter={card.likes} />
                 {card.tags.map((tag, index) => (

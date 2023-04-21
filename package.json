@@ -12,7 +12,9 @@
     "lint": "npx eslint .",
     "test:unit": "vitest",
     "test:e2e": "start-server-and-test dev http-get://localhost:3000 cypress",
-    "cypress": "nyc cypress run && nyc report --reporter=text-summary",
+    "cypress": "npm run test:clean && nyc cypress run && nyc report --reporter=text-summary",
+    "cy:open-e2e": "cypress open --e2e --browser chrome",
+    "test:clean": "npx rimraf coverage && npx rimraf .nyc_output",
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
@@ -40,6 +42,7 @@
     "@typescript-eslint/parser": "^5.22.0",
     "@vitejs/plugin-react": "^3.1.0",
     "@vitest/coverage-c8": "^0.29.3",
+    "babel-plugin-istanbul": "^6.1.1",
     "cross-env": "^7.0.3",
     "cypress": "^12.10.0",
     "eslint": "^8.14.0",
@@ -55,6 +58,7 @@
     "lint-staged": "^12.4.1",
     "nyc": "^15.1.0",
     "prettier": "^2.6.2",
+    "rimraf": "^5.0.0",
     "start-server-and-test": "^2.0.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0-beta.1",
