@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('App e2e test', () => {
   it('renders the home page', () => {
     cy.visit('/');

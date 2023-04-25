@@ -1,4 +1,4 @@
-import 'cypress-file-upload';
+/// <reference types="cypress" />
 
 describe('Form page tests', () => {
   beforeEach(() => {

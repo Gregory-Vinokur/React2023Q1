@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 describe('Home page e2e tests', () => {
   beforeEach(() => {
     cy.visit('/');
