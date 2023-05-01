@@ -1,6 +1,6 @@
 # React2023Q1
 
-## Module 01. React. API.
+## Module 06. React. SSR.
 
 ## Available Scripts
 
@@ -12,14 +12,19 @@ Install all project dependencies.
 
 ### `npm run dev`
 
-Runs the app in the development mode.
+Runs the app and the server in the development mode.
 
-The page will reload when you make changes.
-You may also see any lint errors in the console.
+### `npm run test:unit`
 
-### `npm run test`
+Launches the unit tests using Vitest and show coverage.
 
-Launches the test runner in the interactive watch mode.
+### `npm run test:e2e`
+
+Launches the e2e test using Cypress and show coverage.
+
+### `npm run test:clean`
+
+Deleting all folders made by Cypress.
 
 ### `npm run lint`
 
