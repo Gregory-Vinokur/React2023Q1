@@ -31,7 +31,7 @@ async function createServer() {
           pipe(res);
         },
         onAllReady() {
-          res.write(html[0] + html[1]);
+          res.write(html[1]);
           res.end();
         },
       });
