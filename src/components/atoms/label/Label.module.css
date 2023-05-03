@@ -1,0 +1,9 @@
+.label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: black;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
